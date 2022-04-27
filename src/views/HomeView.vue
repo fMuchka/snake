@@ -1,18 +1,24 @@
+<script setup lang="ts">
+
+import router from "@/router"
+
+    function startGame() :void {
+        router.push("/gameSetup");
+    }
+
+</script>
+
+
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+    <div>
+        <h1>Welcome to Snake_FM</h1>
+        <h3>JavaScript version</h3>
+    </div>
+
+    <button @click="startGame()">Start</button>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
-export default class HomeView extends Vue {}
-</script>
+<style scoped>
+
+</style>
