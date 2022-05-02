@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ref, onMounted } from "vue"
-    import DIFFICULTY from '@/enums/difficulty'
+    import DIFFICULTY from '@/enums/DifficultyTypes'
     import router from "@/router"
     import { useGameStore } from "@/store/GameStore"
 

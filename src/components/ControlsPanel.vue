@@ -1,20 +1,26 @@
 <script setup lang="ts">
 
-    import { reactive, onMounted } from "vue"
+    import { reactive, onMounted, defineEmits } from "vue"
+    import MoveKeyDirection from "@/enums/MoveKeyDirection"
 
     interface ControlKeyType{
         icon: string,
-        color: string | null
+        color: string | null,
+        direction: string
     }
 
     const controlKeys = reactive(
         new Map<string, ControlKeyType> ([
-            ["ArrowLeft", { icon: "arrow-left-circle", color: null}],
-            ["ArrowRight", { icon: "arrow-right-circle", color: null }],
-            ["ArrowUp", { icon: "arrow-up-circle", color: null}],
-            ["ArrowDown", { icon: "arrow-down-circle", color: null }],
+            ["ArrowLeft", { icon: "arrow-left-circle", color: null, direction: MoveKeyDirection.left }],
+            ["ArrowRight", { icon: "arrow-right-circle", color: null, direction: MoveKeyDirection.right }],
+            ["ArrowUp", { icon: "arrow-up-circle", color: null, direction: MoveKeyDirection.up }],
+            ["ArrowDown", { icon: "arrow-down-circle", color: null, direction: MoveKeyDirection.down }],
         ])
     )
+
+    const emit = defineEmits<{ 
+        ( e: "move", direction: string): void
+         }>()
 
     let lastPressedKeys : string[] = [];
 
@@ -32,6 +38,8 @@
                     
                     // highlight key pressed
                     controlKey.color = "orange";
+    
+                    emit("move", controlKey.direction);
 
                     lastPressedKeys.push(keyPressed);
                 }

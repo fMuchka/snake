@@ -1,10 +1,24 @@
 <script setup lang="ts">
-    import { ref, computed } from "vue"
     import { generateGrid } from "@/functions/generateGrid"
+    import { useGameStore } from "@/store/GameStore"
+    import { reactive, watch, onMounted } from "vue"
 
-    const GRID_SIZE = 25;
-    const GRID = generateGrid(GRID_SIZE)
+    const store = useGameStore();
+
+    const GRID_SIZE = store.getGridSize;
+    const GRID = reactive(generateGrid(GRID_SIZE))
+    const SNAKE: any = reactive(store.getSnake)
+
+    onMounted(() => {
+        const {x, y} = SNAKE.head.coordinates;
+        GRID[x][y].color = "red"
+    })
     
+
+    watch(SNAKE, (newSnake, oldSnake) => {
+        const {x : newX, y : newY} = newSnake.head.coordinates;
+        GRID[newX][newY].color = "red"
+    })
 </script>
 
 <template>
